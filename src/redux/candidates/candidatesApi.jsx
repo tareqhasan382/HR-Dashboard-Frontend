@@ -40,10 +40,17 @@ export const candidateApi = baseApi.injectEndpoints({
         }),
         invalidatesTags: ["Candidates"],
       }),
+      rejectedCandidate: build.mutation({
+        query: (id) => ({
+          url: `/api/v1/candidate/rejected/${id}`,
+          method: "PATCH",
+        }),
+        invalidatesTags: ["Candidates"],
+      }),
   }),
 });
 
-export const { useCandidatesQuery,useCreateCandidiateMutation,useUpdateCandidateMutation,useDeleteCandidateMutation} =
+export const { useCandidatesQuery,useCreateCandidiateMutation,useUpdateCandidateMutation,useDeleteCandidateMutation,useRejectedCandidateMutation} =
 candidateApi;
 
-// Jobs
+// rejected

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useCandidatesQuery, useDeleteCandidateMutation } from "../redux/candidates/candidatesApi";
+import { useCandidatesQuery, useDeleteCandidateMutation, useRejectedCandidateMutation } from "../redux/candidates/candidatesApi";
 import FeatchLoading from "./FeatchLoading";
 // import { FaEye } from "react-icons/fa";
 import { FiEdit } from "react-icons/fi";
@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 //bg-gray-100
 const Table = () => {
   const [deleteCandidate]=useDeleteCandidateMutation();
+  const [rejectedCandidate]=useRejectedCandidateMutation();
   const [selectedOption, setSelectedOption] = useState('');
   const [selectedStatus, setSelectedStatus] = useState('');
   const [isOpenUpdate, setIsOpenUpdate] = useState(false);
@@ -39,6 +40,13 @@ const Table = () => {
       toast.success("deleted successfylly.")
     }
   };
+  const handleRejected = async(id) => {
+    console.log("rejected Id:",id)
+     const result= await rejectedCandidate(id);
+     if(result?.data?.status==="true"){
+       toast.success("Rejected successfylly.")
+     }
+   };
   return (
     <div className="overflow-x-auto">
       <table className="min-w-full table-auto border-collapse whitespace-no-wrap bg-white table-striped relative">
@@ -93,7 +101,7 @@ const Table = () => {
               <div className=" flex flex-row gap-2 items-center justify-center w-full ">
                
               <div className=" flex flex-row items-center justify-center w-full ">
-              <span className=" p-2 rounded cursor-pointer font-semibold bg-red-700 hover:bg-red-950 duration-150 text-white ">Rejected</span>
+              <button onClick={()=>handleRejected(item?._id)} disabled={item.status!=="shortlisted"} className={`${item.status!=="shortlisted" ? " opacity-60 p-2 rounded cursor-not-allowed font-semibold bg-red-950 duration-150 text-white" :"p-2 rounded font-semibold bg-red-700 hover:bg-red-950 duration-150 text-white"}`}>Rejected</button>
                     <span onClick={()=>handledelete(item?._id)} className="inline-block p-2 rounded transition duration-200 transform hover:bg-white hover:scale-110">
                       <AiTwotoneDelete size={25} color="Red" />
                     </span>
