@@ -3,9 +3,10 @@ import baseApi from "../api/baseApi";
 export const candidateApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     candidates: build.query({
-        query: () => ({
+        query: (arg) => ({
           url: "/api/v1/candidate/candidates",
           method: "GET",
+          params:arg
         }),
         providesTags:["Candidates"]
       }),

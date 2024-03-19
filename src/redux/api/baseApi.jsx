@@ -4,6 +4,7 @@ export const baseApi = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
     baseUrl: "https://hr-dashboard-backend.vercel.app",
+  // baseUrl: "http://localhost:5000",
     prepareHeaders: (headers) => {
       // Get the token from localStorage
       const auth = JSON.parse(localStorage.getItem("auth"));
@@ -22,18 +23,4 @@ export const baseApi = createApi({
 
 export default baseApi;
 
-
-
-// axiosApi
-/*
-baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:9000",
-  }),
-========================
-export const baseApi = createApi({
-  reducerPath: "api",
-  baseQuery: axiosBaseQuery({ baseUrl: getBaseUrl() }),
-  endpoints: () => ({}),
-  tagTypes: ["auth", "product"],
-});
-*/
+// http://localhost:5000/

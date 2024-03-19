@@ -22,9 +22,21 @@ const Table = () => {
   const handleSelectChangeStatus = (event) => {
     setSelectedStatus(event.target.value);
   };
-  console.log("status:",selectedStatus)
-  console.log("gender:",selectedOption)
-  const { data, isLoading, isError } = useCandidatesQuery();
+  // console.log("status:",selectedStatus)
+  // console.log("gender:",selectedOption)
+  //filter pagination
+ 
+  const [limit] = useState(20);
+  const [page] = useState(1);
+
+  const query= {
+    limit,
+    page,
+    status:selectedStatus,
+    gender:selectedOption
+  };
+  console.log("query :",query)
+  const { data, isLoading, isError } = useCandidatesQuery(query);
   if (isLoading) {
     return  <FeatchLoading/>
     
